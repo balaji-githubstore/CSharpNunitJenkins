@@ -1,0 +1,7 @@
+{
+  "browser": "ch",
+  "validData": [
+    [ "admin", "pass", "English (Indian)", "OpenEMR" ],
+    [ "accountant", "accountant", "English (Indian)", "OpenEMR" ]
+  ]
+}

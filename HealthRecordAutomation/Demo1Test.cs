@@ -1,4 +1,10 @@
-﻿using System;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using Newtonsoft.Json;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +47,47 @@ namespace Demo.HealthRecordAutomation
             Console.WriteLine(user+password);
         }
 
+        [Test]
+        public void ReadJson()
+        {
+            StreamReader reader = new StreamReader("C:\\Mine\\Company\\Securiton\\HealthRecordAutomationSln\\HealthRecordAutomation\\TestData\\data.json");
+            dynamic? json = JsonConvert.DeserializeObject(reader.ReadToEnd());
+            Console.WriteLine(json?["validData"]);
+            Console.WriteLine(json?["validData"][0][0]);
+            Console.WriteLine(json?["validData"].Count);
+
+            object[] allData = new object[json?["validData"].Count];
+
+            for (int i = 0; i < json?["validData"].Count; i++)
+            {
+                object[] data = new object[json?["validData"][i].Count];
+
+                for (int j = 0; j < json?["validData"][i].Count; j++)
+                {
+                    data[j] = json["validData"][i][j];
+                }
+                allData[i] = data;
+            }
+
+            Console.WriteLine(allData);
+        }
+
+        [Test]
+        public void ExRep()
+        {
+            var extent = new ExtentReports();
+            var spark = new ExtentHtmlReporter("Spark.html");
+            extent.AttachReporter(spark);
+            ExtentTest test = extent.CreateTest("MyFirstTest");
+            test.Log(Status.Pass, "This is a logging event for MyFirstTest, and it passed!");
+            IWebDriver driver = new ChromeDriver();
+            driver.Url = "http://google.com";
+            ITakesScreenshot ts = (ITakesScreenshot)driver;
+            test.AddScreenCaptureFromBase64String(ts.GetScreenshot().AsBase64EncodedString);
+            extent.Flush();
+
+            
+        }
     }
 }
 
