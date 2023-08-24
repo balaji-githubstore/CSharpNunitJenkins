@@ -13,6 +13,7 @@ namespace HealthRecordAutomation
     [Parallelizable(scope:ParallelScope.Fixtures)]
     [TestFixture("ch")]
     [TestFixture("edge")]
+    [Category("AA")]
     public class Demo2
     {
         protected IWebDriver driver;
@@ -27,11 +28,13 @@ namespace HealthRecordAutomation
         {
             if(browser.Equals("ch"))
             {
-                driver=new ChromeDriver();
+                //driver=new ChromeDriver();
+                driver = new ChromeDriver(@"C:\Users\Balaji_Dinakaran\.cache\selenium\chromedriver\win64\116.0.5845.96");
             }
             else
             {
-                driver = new EdgeDriver();
+                //driver = new ChromeDriver();
+                driver = new EdgeDriver(@"C:\Users\Balaji_Dinakaran\.cache\selenium\msedgedriver\win64\116.0.1938.54");
             }
             
             driver.Manage().Window.Maximize();

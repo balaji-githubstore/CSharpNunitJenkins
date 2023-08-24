@@ -46,7 +46,7 @@ namespace Securiton.HealthRecordAutomation
             string actualError= loginPage.GetInvalidErrorMessage();
 
             //assert the error Invalid username or password
-            Assert.True(actualError.Contains("invalid username"),
+            Assert.True(actualError.Contains("Invalid username"),
                 "Assertion on Error message - actual error: "+actualError);
         }
 
